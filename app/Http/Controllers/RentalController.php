@@ -10,6 +10,9 @@ class RentalController extends Controller
 {
     public function rent(Request $request)
     {
+        $request->validate([
+            'book_id' => 'required|integer|exists:books,id',
+        ]);
         $book = Book::findOrFail($request->book_id);
 
         if ($book->copies_available < 1) {
